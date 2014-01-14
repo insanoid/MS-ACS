@@ -1,0 +1,58 @@
+% HCI - Assignement I
+% Karthikeya Udupa K M (1393456)
+% Explain the main issues involved in developing physiological computing systems, and how such systems might inform adaptive systems.
+
+\documentclass[10pt,a4paper]{article} 
+\usepackage[scale=0.8]{geometry} % adjust the page margins
+% The document preamble 
+%\usepackage{times} 
+\usepackage[utf8]{inputenc} 
+\usepackage{graphicx}
+%\usepackage{chicago}
+\usepackage [autostyle]{csquotes}
+
+% Details of the titlepage 
+\title{Issues in Implementation of Physiological Computing Systems and their Interaction with Adaptive Systems} 
+\author{Karthikeya Udupa K M} 
+\date{\today}
+
+\begin{document} 
+\maketitle
+\noindent
+\textbf{Physiological Computing} is an emerging concept that broadens the interaction medium between the users and the system from the traditional input methods to using the user's physiology as input and by constant monitoring the user to enhance and enrich the user's experience of working with the system. \cite{ALLANSON:2002:IEEE,AFC:2002:IWC}. These systems are capable of adaptive automation without any invasive activity from the user \cite{BEP:1996:BP}. The biocybernetic loop \cite{POPE:1995:BP}, which is an integral part, allows the system to adapt itself in the realtime to improve the user's experience, giving the system a sense of contextual awareness of its user and hence allowing it to showcase ``intelligence''.
+
+\section{Challenges in developing Physiological Computing Systems} 
+As with any emergent area of science, physiological computing has various hurdles which are still being researched upon to allow to enable us to design these systems more effectively.
+\subsection{Psychophysiological inference}
+\label{PSYCOP}
+The physiological system quality is governed by the the fact that how sensitive the system is deducing the psychophysiological inferences and how reliable it is in doing so by capturing the generality of this relationship across the people.
+The most crucial part of the representation problem is to map the physiological measures into psychological states in the system. Having a single psychological state for a single physiological variable although is most suitable for such systems, is very rare in reality and most of the cases either tend to the either one to many, many to one or many to many scenarios, which leads to increased difficulty in actually inferring the user's physiological activity. In addition to this, the markers that define a psychological state are not always independent of the context \cite{CT:1990:APYSC,CTB:2000:CUP}, i.e., there are other influencing factors for a state or the variable might induce a different nature of psychological state in a different context. 
+
+\subsection{Psychophysiological validity}
+Validation of the psychophysiological inference inferred through the system based on the diagnosticity, sensitivity and reliability standards that were set is also essential, although there are various methods to do this, but none are without flaws. Various experiments have been conducted to validate conditions by altering the user's state by exposing to him media elements in a lab, for example, use of movie clips which already are standardised and known to generate scores \cite{LNZ:2004:EURASIP}, however as the experience the user goes through is associated with the individual and may not be generalised and hence is considered to be flawed \cite{FCLD:2009:FPC}. Experiments have also been made to validate psychophysiological behaviour by modifying the tasks of previously known consequences but it is still difficult to asses the appropriate physiological construct for the manipulation as there is little or no control over the experiment.
+
+Titration \cite{WGFR:1999:HF} measures the complexity of the task for the user (personalisation) and then sets the benchmark against which the measures of the effectiveness of experimental manipulation are made, but this is also limited by the memory limitation and personality traits of the user \cite{NW:1977:PSYCRI,VL:2006:IEEE}.
+
+\subsection{Representation of the user}
+\label{ROU}
+The adaptation of a system in a biocybernetic loop is heavily influenced by the current physiological state in which the user has been operationalised by the system. In a uni-dimensional representation of the user, the physiological state is represented on rather a restrictive range for adaptive systems to adapt to. A multi-dimensional representation would provide a more insight and also allow the system to more accurately represent the user, for e.g., task engagement and distress could both be used as a combined factor to represent the user's physiological state \cite{FCV:2006:BP,FC:2007:ACEW}. \cite{FCLD:2009:FPC} classifies the user's physiology into possible states by mapping the distress caused with the task engagement of the user. This enables us to understand and represent the user's state much accurately hence allows the system to adapt more effectively. A more detailed representation of the user can be obtained by including more variables \cite{KPB:2007:IJHCS} hence improvising on the range and specificity of the adaptive responses from the systems.
+
+\subsection{Awareness and interaction design}
+The accuracy of these systems is very critical especially due to their partial autonomous nature. However there are discrepancies which can either be a misinterpretation of user state or failure to detect the state change what so ever. The interventions that these systems provide can be explicit in which case the user knows about and acknowledges the state change whereas in implicit the changes may occur without the the user knowledge.
+
+\subsection{Ethical concerns}
+The issues with development of these systems are not just limited to technical constraints. Because of the nature of the technology, substantial amount of information about the user needs to be collected. The ethics demand that the user should be given absolute control over the information\cite{PIKL:2002:IWC}, should be aware why the information has been collected \cite{KELLY:2006:WEB} and ultimately should be benefited from it. These requirements are asserted by the fact that these systems are designed to manipulate the user's physiological state and only he should be able to control the nature of the manipulations. 
+
+There have also been recent arguments concerns in regards to neuroergonomics stating the possibility that continuous exposure system may lead to affecting ones self perception in a negative way \cite{HS:2003:TIES} and can even lead to impact on mental health.
+
+\section{Interaction with Adaptive Systems}
+As evident in \ref{PSYCOP} and \ref{ROU}, each stage in a physiological system has a crucial role in the functioning of an overlaying adaptive system. The system is provided with the inferred physiological activity in a digital form which can act as a control signal for them. The state of the user which plays a pivotal role in defining the adaptive strategies in adaptive systems also can be deduced through physiological computing as mentioned in \ref{ROU}. The explicit adaptive feedback mechanism designed through the inputs from the physiological systems can be helpful in improving the moods, self awareness and other psychological states of the user \cite{PIKL:2002:IWC}.
+The biocybernetic loop acts as the juncture between the user's actions and the adaptive capability of a system. The meta-goals of the biocybernetic loop defines the adaptive function of the system, i.e. negative control loops for adaptive systems which are designed to maintain a boundary \cite{HKW:1989:AA} and positive control feedback allows the system to attain a level of performance instability \cite{FMPS:1999:BP}.
+
+\section{Conclusion}
+The physiological systems, although have a number of obstacles ahead of them before they can be put into real-life use, but once they have been overcome, it would open a new avenues in making human computer interaction more dynamic and effortless. 
+
+\bibliographystyle{alpha}
+\bibliography{Technical_Report_I}
+\end{document} 
+
