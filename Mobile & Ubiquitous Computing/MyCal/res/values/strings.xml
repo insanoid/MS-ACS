@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UoBCal</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="equal">=</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+    <string name="mul">x</string>
+    <string name="div">/</string>
+    <string name="sqrt">^</string>
+    <string name="mod">%</string>
+    <string name="delete">DEL</string>
+    <string name="mc">MC</string>
+    <string name="clear">CLR</string>
+    <string name="point">.</string>
+    <string name="disp">0</string>
+    <string name="lbracket">(</string>
+    <string name="rbracket">)</string>
+    <string name="sin">SIN</string>
+    <string name="cos">COS</string>
+    <string name="tan">TAN</string>
+    <string name="log">LOG</string>
+    <string name="pi">π</string>
+    <string name="e">e</string>
+    <string name="exl">!</string>
+    <string name="error_message">An error occurred while processing your request.</string>
+    <string name="not_implemented_messages">This functionality has not yet been implemented.</string>
+
+</resources>

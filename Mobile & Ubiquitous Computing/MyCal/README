@@ -1,0 +1,17 @@
+
+Author
+===========================================
+Karthikeya Udupa Kuppar Manjunath
+MSc. Advanced Computer Science (139456)
+
+
+
+Features
+===========================================
+- Infix with operator precedence.
+- Additional functionality 
+	- Square root
+	- multiline view
+	- Custom fonts
+	- Multi-lingual support (English & Spanish)
+	- Different layout style on orientation change
