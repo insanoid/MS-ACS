@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PlaceReminder</string>
+    <string name="location_list">Edit Points of Interest</string>
+    <string name="add_location">Add New Point of Interest</string>
+    <string name="delete_location">Delete</string>
+    <string name="app_full_name">Place Reminder</string>
+    <string name="map_error">Sorry! unable to create maps</string>
+    <string name="user_current_location">User Current Location</string>
+    <string name="placemark_notify">You are currently near a point of interest!</string>
+    <string name="placemarks">Points of Interest</string>
+    <string name="add_placemark_hint">Long press on the map to add a point.</string>
+    <string name="add_placemark_warning">Please enter a location and a title</string>
+    <string name="monitoring_area">Current Radius Value: </string>
+    <string name="add_poi">New Point Of Interest</string>
+    <string name="edit_poi">Edit Point Of Interest</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="more">more..</string>
+    <string name="notification_header"> Point(s) of interest nearby.</string>
+    <string name="place_name_hint">Enter A Name For POI</string>
+    <string name="away">Away</string>
+    
+</resources>

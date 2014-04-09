@@ -1,0 +1,3 @@
+Opened log file 'logfile'
+0:000> .logclose
+Closing open log file logfile

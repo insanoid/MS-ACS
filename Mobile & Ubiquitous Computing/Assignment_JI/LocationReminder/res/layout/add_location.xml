@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:weightSum="4"
+    android:background="@android:color/black" >
+
+    <fragment
+        android:id="@+id/addMapView"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:layout_weight="3.6" />
+
+    <TextView
+        android:id="@+id/radiusValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/white"
+        android:text="@string/monitoring_area"/>
+    <TextView
+        android:id="@+id/r2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/white"
+        android:text="@string/monitoring_area"/>
+    
+    <SeekBar
+        android:id="@+id/radiusSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="500"/>
+
+    <EditText
+        android:id="@+id/placeNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:singleLine="true"
+        android:inputType="textCapWords"
+        android:textColor="@android:color/white"
+        android:hint="@string/place_name_hint" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_location"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

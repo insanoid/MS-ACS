@@ -1,0 +1,97 @@
+% Mobile Sensing
+% Karthikeya Udupa K M (1393456)
+\documentclass[10pt,a4paper]{article} 
+\usepackage[scale=0.8]{geometry}
+
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[utf8]{inputenc} 
+\usepackage{graphicx}
+
+\usepackage{booktabs}
+\usepackage{chicago}
+
+% Details of the titlepage 
+\title{Using Mobile Sensing to Understand User Interruptibility} 
+\author{Karthikeya Udupa K M} 
+\date{\today}
+
+\begin{document} 
+
+\maketitle
+\noindent
+Over the last decade the mobile platform has shown exponential growth both in terms of technological advancements and in terms of the impact that it has created on the lives of people worldwide. Not only do the modern day smartphones and other mobile devices have tremendous processing power equivalents of which could only have been found in super computers a decade ago but they also come equipped with a plethora of sensors, primary purpose of whose is to provide a platform for the developers to expand the capabilities of their applications and provide a more rich and interactive experience to the user. However this also provides an opportunity for researchers to utilise the sensors to monitor and understand human activity, behaviour and their contexts \cite{lane2010survey}. The information that is gathered from this process can be put to further analysis ultimately leading to improvement of the end user's usage experience.
+\newline
+\newline
+This study involves collection of user's accelerometer information, information about his interruptibility along with other relevant contextual information using his smart phone. Using this information we extract various features and develop a classifier can be used further to understand and predict his interruptibility in relation to his activities. Building a statistical model for assessment of interruption can be very useful in order to assess what impact an interruption may have on the user and his present social conditions \cite{fogarty2005predicting}. An interruption model when combined with the modern day context aware systems can be used to help dealing with the negative impact technology has on the user and prevent him from going astray from important tasks \cite{erickson2002some,moran2001introduction}.
+
+\section{Methodology}
+\subsection{Data Collection}
+The primary step of the study was to collect data in order to analyse the user's interruptibility. The android application \textit{SampleMe} was developed for this very purpose, it provided an interface to collect a set of accelerometer readings from the device over a period of time which was then paired with the user's feedback on whether or not he was okay with the interruption. The feedback is taken at random intervals in the form of a questionnaire where the user sets values for the various parameters. This process was carried out over a period of four weeks on the user's personal mobile device and the information that was collected was constantly synchronised with an online service to store it for further use.
+
+For each set of accelerometer reading the following inputs were taken from the user as feedback:
+\begin{itemize}
+\item\textbf{Interruptibility:} A scale of how acceptable the user is of being interrupted at the given point in time.
+\item\textbf{Happiness:} A scale of how happy the user feels at the given point in time.
+\item\textbf{Sadness:} A scale of how sad the user feels at the given point in time.
+\item\textbf{Boredom:} A scale of how bored the user feels at the given point in time.
+\end{itemize}
+
+\subsection{Conversion}
+\label{conversion}
+After the initial four weeks of data gathering, the collected data was downloaded from the server in the \textit{.dat} format, which was a representation of the accelerometer data and interruptibility. To process the data further, it was required to be in a format that can be used to perform mathematical operations with ease. \textit{Python} was used to read the data from the \textit{.dat} file and convert into JavaScript Object Notation \textit{(JSON)} format, which was then handled by the JSON library to iterate through to perform mathematical operations.
+
+For each set of data consisting of a set of accelerometer data and interruptibility following values were calculated:
+\begin{itemize}
+\item\textbf{Mean (\textit{m}):} $\sum{\sqrt{(x_i^2+y_i^2+z_i^2)}}$
+\item\textbf{Intensity variance (\textit{v}):} $1/n *\sum{{((\sqrt{x_i^2+y_i^2+z_i^2)}-m)^2}}$
+\item\textbf{Intensity mean crossing rate (\textit{MCR}):} $1/(N-1) * \sum\nolimits_{n> 0}^N{I((\sqrt{x_i^2+y_i^2+z_i^2)}-m)(\sqrt{x_{i-1}^2+y_{i-1}^2+z_{i-1}^2)}-m)<0)}$
+\end{itemize}
+
+The calculated data is stored in an attribute relation file format (\textit{.arff}) which basically list of instances sharing common attributes with the attributes described inside the file which is readable by WEKA.
+
+\subsection{Classifier Creation}
+WEKA was the machine learning software that can be used mining data and to build classifier using various inbuilt algorithms. Once the attribute relation file that we generated has been loaded into the software we can apply various classifiers that are available to build a model for interruptibility of the user. The process can be divided into two essential tasks, first is selecting an algorithm with a training method, selecting a training set which would train the classifier in relation to our data. The second task is the testing of the classifier that was build and analyse the results further to understand the efficiently of the model in detecting the instances correctly. Once we have finalised on the model we can save the created classifier. We will discuss the process and the various algorithms that were used in section \ref{classification}.
+
+\section{Feature Extraction}
+The features that were extracted from the data as mentioned earlier in section \ref{conversion} were \textit{Mean}, \textit{Intensity variance} and \textit{Intensity mean crossing rate}. Mean provides us an insight into the average displacement of the user over the given time interval. Variance provides us information as to how much the spread out the accelerometer readings are from the mean value which can indicate any movement/activity patterns of the user. The goal of the study is to analyse interruptibility of the user with relation to his activity, these parameters that were calculated help us in understanding user's activities and if or not he is ok with any interruption while performing those activity. Additionally they can be used to understand and classify user's activity as well \cite{ravi2005activity}.
+
+Other factors that were collected by the application can also be used, for example the mood of the person, i.e., how happy or sad he is, can be used to understand the how user's physiological state can effect his acceptance of interruption. An example would be identification of a pattern using which we can predict that a person might be okay with interruption when he is occupied provided that he is happy, similarly he might not be ok with interruption when he is sad even if he is idle. This however is just a possible scenario as it highly varies from individual to individual. We also have information about the time of the day which can be used to build a model for interruption based on the time We can also collect location information which can help us identify the relation between the user's interruptibility, his activity and the present location. For example, the user might not want to be disturbed while he is at work, location of which can be identified by the time he spends at various locations. User's actual activity however might not be detectable (for example the work he is doing on a machine) but his mobile usage activity can be detected and can be used to relate with the available data regarding his interruptibility which is something we can further expand our research upon. Additionally secondary context's that can be deduced with the help of location can also be looked into further to understand the reaction of the user towards interruption.
+
+\section{Classification}
+\label{classification}  
+WEKA provides various classification algorithms to build classifiers from the provided data. The processed data (consisting of 67 unique instances) was used to build classifiers for interruptibility using various algorithms and methods. 
+
+The training set that we require for the classifier to learn about the scenario can be the same dataset as the test set however it is not the recommended method as the test set is then validated using a classifier built using the very same values and hence the accuracy with which it predicts the test set's instances would not be the actual accuracy when a different set is used.
+
+In addition to using the same data set for both training and testing, an additional classifier was build using a dataset collected by a colleague and then the actual data that was collected by the user was used as the test set. Additionally, cross validation and percentage splitting (set at 66\%) was used as well for the various classifier algorithms. The classifier that were selected were based on a study conducted by \cite{kumari2013selection} comparing the various classifiers in WEKA.
+\newline
+\newline
+\noindent
+\begin{table}[htdp]
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\stretch{1}}}*{7}{r}@{}}
+  \toprule
+  & \textbf{Self Trained} & \textbf{Externally Trained} & \textbf{Cross Validation} & \textbf{Percentage Split} \\
+  \midrule
+  Naive Bayes           & 53.73\% & 78.00\% & 46.26\% & 47.82\%  \\
+  Simple Logistics      & 50.74\% & 18.00\% & 46.26\% & 47.82\%  \\
+  KStar                 & 100.0\% & 22.00\% & 64.17\% & 52.17\%  \\
+  Filtered Classifier   & 50.74\% & 18.00\% & 50.74\% & 47.82\%  \\
+  Ordinal Classifier    & 50.74\% & 18.00\% & 49.25\% & 47.82\%  \\
+  Decision Table        & 50.74\% & 18.00\% & 47.76\% & 47.82\%  \\
+  J48                   & 50.74\% & 18.00\% & 49.25\% & 47.82\%  \\
+  \bottomrule                           
+\end{tabular*}
+    \caption{A comparison of the correctly classified instance percentages for various classifiers and methods.}
+    \label{classifier comparison}
+\end{table}
+
+\section{Conclusion}
+As we can see from the table (\ref{classifier comparison}) the outputs of the various classifiers all reflect that from the limited data that was gathered we cannot build a reliable model to reflect on user's interruptibility based on his activities. The considerable low percentage of correctly classified instances in the case of classification done by a classifier trained by an external data source of a different user (with the exception of Naive Bayes, which was 78\% higher then all other sources) may indicate that the interruptibility of the user is likely vary from person to person.
+
+A research with a much larger timeframe and involving a broad range of subjects classified into categories based on their lifestyle and work with consideration given to factors like location, social condition, physiological state among other contexts would be required in order to understand the acceptance or rejection of interruption by the user and the various factors that influence him in making that decision which would help build a generic model to identify interruptibility.
+
+\bibliographystyle{chicago}
+\bibliography{MobileSensing}
+\end{document}

@@ -1,0 +1,44 @@
+Model Naming Convention
+======================================
+
+Naive Bayes
+	-	01_01 (Self Trained)
+	-	01_02 (Externally Trained)
+	-	01_03 (Cross Validated)
+	-	01_04 (Percentage Split)
+
+Simple Logistics
+	-	02_01 (Self Trained)
+	-	02_02 (Externally Trained)
+	-	02_03 (Cross Validated)
+	-	02_04 (Percentage Split)
+	
+KStar
+	-	03_01 (Self Trained)
+	-	03_02 (Externally Trained)
+	-	03_03 (Cross Validated)
+	-	03_04 (Percentage Split)
+	
+Filtered Classifier
+	-	04_01 (Self Trained)
+	-	04_02 (Externally Trained)
+	-	04_03 (Cross Validated)
+	-	04_04 (Percentage Split)
+
+Ordinal Classifier
+	-	05_01 (Self Trained)
+	-	05_02 (Externally Trained)
+	-	05_03 (Cross Validated)
+	-	05_04 (Percentage Split)
+	
+Decision Table
+	-	06_01 (Self Trained)
+	-	06_02 (Externally Trained)
+	-	06_03 (Cross Validated)
+	-	06_04 (Percentage Split)
+
+J48
+	-	07_01 (Self Trained)
+	-	07_02 (Externally Trained)
+	-	07_03 (Cross Validated)
+	-	07_04 (Percentage Split)
