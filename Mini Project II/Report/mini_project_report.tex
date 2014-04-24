@@ -280,7 +280,7 @@ Mobile phones are usually connected to networks, when the user moves the connect
 \end{itemize}
 
 \section{Shortcomings \& Possible Improvements}
-
+\label{contextShortcomings}
 The framework provides a foundation for a much more extensible and useful framework for android. There are several areas which should be considered in the future versions and will improve it further.
 
 Firstly, the framework can be made more robust, currently it has been designed for devices running Android version 4.0 and 4.4, backward compatibility would certainly make the framework useable on a wide range of devices. 
@@ -401,10 +401,46 @@ The web app is also responsible to identify and provide patterns to the applicat
 
 The process for extraction of information usually involves aggregating the app usage for each package, however,this can also accommodate things like duration and location information. Location filtering uses the geospatial functions that is provided by mongoDB to reduce the records to a particular area only. The radius along with things such as packages to ignore can all be configured in the config file. The diagram above shows in depth the working of these queries.
 
+\section{Possible Improvements}
+
+The application and the framework was both developed over a period of 1.5 months. The purpose of this project was to create a foundation for a robust data collection application and a framework which would be re-useable component for context extraction. This being said, there are various improvements that can be done the application and the web application.
+
+\subsection{Android App Shortcomings  and Improvement}
+
+The android application lacks several features in this first release. Firstly, improvements that were mentioned related to the framework (see section \ref{contextShortcomings}) would improve the overall performance of the app.
+
+The application presently provides analytics and trends information which is very generic which can be customised and converted to a very personalised recommendation system (see section \ref{RecommendationSystem}).
+
+\subsection{Web App Improvement}
+
+The web component can be improved considerably both in terms of features that it provides and in terms of performance. 
+
+\begin{itemize}
+
+\item Presently there is no web front end for the analysis of the information that is being gathered, only way to access and analyse the information is by directly accessing the information though the database.
+
+\item The web component at present does not deal much with the context information, it just uses app usage and location information to provide the various results, future improvement can make use of all the available information. 
+
+\item The web component's security can be improved by using bcrypt to store and encrypt private information.
+
+\item The database connection at present picks a connection from a pool of 10 connections. There are several things that can be done to allow fast network transactions.
+    \begin{itemize}
+        \item Sharding [E23] maybe applied and to the mongodb instance to improve the performance of the application.
+        \item At present the application relies on mongodb to deliver it data, which in turn reads from the database and provides the required data. With the increasing load this would not be feasible. A caching layer which would store the information in memory would be required. Technologies which are meant to handle rapidly changing content in the memory such as Redis can be used for this purpose in the future.
+        
+        
+        \item Use of MapReduce technique to perform various complex functions in the application benefits the overall performance, but at present each time the service is called the MapReduce is performed. This can be avoided by using incremental MapReduce [E24] which automatically reduces the information when new information is added incrementally hence reducing the load on the server by a considerable amount.
+    \end{itemize}
+
+\end{itemize}
+
+
+
 \chapter{What can be done with the data}
 The purpose of this stage of the experiment is to provide an effective way to gather information from the user at a very large scale. Presently this information is being stored and analysed to provide statistics and trends in a particular area and the user community. But there is much more that can be done with the application.
 
 Let us look at a few possible novel approaches to use the information that has been gathered in future researches.
+
 
 \section{Intuitive Application Launcher}
 
@@ -418,20 +454,34 @@ We already have contextual information about the user and the app usage, we woul
 
 Additionally, this system can learn based on the choices user makes on the launch screen, whether or not he selects one of the app provided and eventually improve itself.
 
-The application can also recommend people what to use based on their usage trends, for example if people use a certain category of app at a certain place, however another app is more popular with the masses we can recommend it to the user.
+\section{Recommendation System}
+\label{RecommendationSystem}
+The application already uses the existing information available to provide recommendations as per trends but this functionality can be extended further, presently the app gives a very generic recommendation both for overall user-base and location specific recommendations, but improvements can be made to recommend people what to use based on their specific usage trends, for example if a person uses a certain application for ordering food however there is another app which is popular in his region (making an assumption it might actually be better the the one user has more relevant results for his location) the application can make a suggestion to the user to try out the application.
+
+Similar functionality can also be developed for web pages, a recommended reading list can be formulated based on the user's reading habits and the trends, this would require a natural language processing of the content of the webpages to understand the nature of the content on the website. The application would have to understand the user's web usage pattern and derive a web profile for the user and improving over a period of time. This would be similar to [E22] but for mobile devices hence would be able to learn and adapt faster, also since the content which is recommended is already popular among people the possibility of a favourable recommendation is more likely.
+
 
 \section{Pre-Caching}
-\section{Research Perspective}
+We can use the information acquired from the gathered data about popularity of applications at certain location and time along with information about user's preferences to intelligently launch application in the background or to load content on to the devices locally beforehand hence reducing the wait time for the user.
+
+Additionally, this can be converted and expanded into a much larger framework. We could use the information from the server and transfer into local WiFi access points, which can then use the web usage information and intelligently cache websites/webpages which are popular in the vicinity of the access points. This would require an integration of the server and the WiFi access point. This would provide a very large scale increase in the speed by which the popular websites are loaded on the mobile device hence providing a much more smoother experience. However, this process has to be designed intelligently else it can result in providing stale information to the user.
+
 
 \chapter{Performance Evaluation}
 \chapter{Challenges \& Downfalls}
 \label{challenges}
 \subsection{Deployment \& Platform Restrictions}
+The present application is meant to be used only with Android operating system, this restricts the users with other devices to participate in the stay and moreover hamper overall demographics of the study, even though [e25] shows that android has a majority in mobile marketshare there is still a considerable number of user's using other operating systems and also this figure can vary based on the location where the survey is conducted, hence making it very important to conduct the study on a broader scale.
+
+However, lot of what is possible would not be possible on operating systems such as iOS. iOS is governed by a sandbox policy [E9] which does not allow to access information (such as application on top) other then its own.
+
 \subsection{Data privacy concerns}
 \subsection{Accident Behaviour Modification}
 \chapter{Related Work}
 \chapter{Future Work}
 \chapter{Conclusion}
+Practical usage of the information as we have seen is a lot, however, this information can also understand various aspects of people and mobile phone usage behaviour in a better way.
+
 
 \bibliographystyle{ abbrv}
 \bibliography{mini_project_report}
