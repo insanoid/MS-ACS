@@ -10,7 +10,8 @@
 \usepackage{pdfpages}
 \usepackage{listings}    
 \usepackage{float}
-
+ \usepackage{url}
+ 
 \floatstyle{plain}
 \newfloat{program}{thp}{lop}
 \floatname{program}{Snippet}
@@ -37,7 +38,7 @@
 
 % Title
 
-{ \huge \bfseries  Analysing User Interaction On Mobile Devices \\[1cm] }
+{ \huge \bfseries Analysing User Interaction On Mobile Devices \\[1cm] }
 
 {\large \textbf{Karthikeya Udupa Kuppar Manjunath}\\[1cm]}
 
@@ -145,40 +146,43 @@ The primary component of the the system is to gather information for further pro
 Since the application falls in the category of crowd-sensing, the data is sent to a central data store on the web from the various devices of individuals. The application makes sure that the data is sent to the server in a power and money efficient manner (See section [y]). The server is responsible for storing the information securely and also acts as an authentication server. Essential features are filtered and context is associate with each other and the user. Further also tries to understand the extracted information and provide end points for the application to get prediction data and analytics information (See section [z]).
 
 
-\chapter{Context Sensing Framework}
+\chapter{Android Context Sensing Framework}
 \label{ContextSensingFramework}
-Context is a very primal component of any system. As seen in figure 1, the contextual information provided by modern smartphones is enormous. However, the mobile platforms are various and each platform has its own development environment and is different from one another. We selected the Android development environment for the study as this provides a much more flexible and open framework to extract contextual information then its Apple iOS counterpart [E9], which restricts access of information for an application beyond its application sandbox and also restricts it from collecting information in the background.
+Context is a very primal component in all of the anticipatory systems. As one can conclude from [Figure 1], the contextual information that can be gathered using modern smartphones is a lot, more and more sensors are being added onto the devices. However, there are various mobile platforms and each consisting of its own development environment, tools and deployment stores making it very difficult to develop a framework which can function on multiple platforms. For the purpose of this project selected the Android development environment for various reasons.  The platform this provides a much more flexible and open framework to extract contextual information. It also the most widely used mobile operating system and consists of devices of all price ranges hence providing a much more diverse target audience.
 
-Although there have been many contextual frameworks for Android which provide an relatively easy methodology to extract information [E10, Print 1], however the present requirement is rather simpler and there are some components that the framework does not monitor, for example, [Print 1] does not matter network, WiFi access points, [E10] does not monitor user's schedule among others.
+Although there have been many contextual frameworks in the past some of which are for Android as well; providing an relatively easy methodology to extract meaningful information \cite{novakextensible2013, rachuri2010emotionsense}, however the present requirement of the project is much simpler and there are some components that the frameworks presently do not monitor, for example, \cite{novakextensible2013} does not monitor network, WiFi access points, \cite{rachuri2010emotionsense} does not monitor user's schedule and phone profile. Also a framework at this point would provide more flexibility and access to the more recent API's which older frameworks do not cover. Although The context sensing framework designed for the purpose of this project but it is designed in a way to interface and connect to any application for monitoring purpose.
 
-The context sensing framework designed for this purpose provides a very interface to connect to application for any purpose.
-
-\section{Types of Sensing}
+\section{Contextual Information types}
 \label{contextType}
-There are various sensors that can be selected to be monitored by the framework on Android, the following information was considered to be monitored for the first version of the framework.
+There are various sensors that are available for the purpose of monitoring in the modern mobile devices and supported by the Android SDK. The following are the contextual information which were considered to be supported and available for subscription in the first version of the framework.
 
 \begin{itemize}
 \item Location (GPS or Network)
 \item Battery/Power Source Information
-\item Network Connectivity
-\item Network Signals
-\item WiFi Access Points and Connectivity
+\item Network Connectivity Status
+\item Network Signals (Cell Tower Connectivity)
+\item WiFi Access Points and Connectivity Status
 \item User Events
 \item Bluetooth Status and Nearby Devices
-\item Telephony
+\item Telephony Events
 \item Screen Activity Context
+\item User Phone Profile (Screen Brightness, Volume Settings \& Vibration)
 \end{itemize}
 
-We will further discuss each of the the above mentioned context's in details and how a scanning methodology was customised for it making effective and efficient.
+We will further discuss a few of the the above mentioned context's in details and how a scanning methodology was customised for it be both effective and efficient.
  
 \section{Framework's Working Architecture}
+
+In order to understand how the framework would actually function once integrated we divide the system's architecture into two components, first is the external end points of the framework which any application can interact with the second component is the actual internal component which handles subscriptions, monitoring, polling and content delivery.
+
 \subsection{End-points and External Handling}
 \label{ExternalHandling}
-The primary objective of the framework is to make sure information is provided in the simplest possible way and can be customised accordingly. Also the framework has to be plug and play, meaning there should be a minimal lines of code that requires to be added to an existing application to do what you want to do. The functionality of any existing application should not be focused on getting the framework to work but rather framework should just be a component integrated into the application providing a stream of required information and can be controlled effectively. 
 
-The architecture of the framework that was designed can be described as a subscription based model, wherein each of the components can be subscribed externally. In addition to that each subscription can be provided with parameters to customise it.
+As we described earlier the purpose of creating a new framework is to make sure information is provided in the simplest possible way and should be extensible. Also the framework has to be plug and play, there should be very minimal code that would have to be written on order to integrate it with an existing application and to perform what is required. The functionality of any existing application should not turn away from its original goal to focus on the integration of the framework and procuring data from it. The framework should just be a component integrated into the application providing a stream of required information and which can be controlled by the application.
 
-To begin monitoring any particular context one just has to call the \textit{monitorContext} method in the \textit{ContextManager} class. The call can be customised by the parameters that it accepts.
+The framework's architecture can be described as a subscription based model, wherein each of the components can be subscribed externally by the connecting application. In addition to that each subscription can be provided with additional parameters in order to tailor the subscription based on the needs of the application.
+
+To begin monitoring any particular context one just has to call the \textit{monitorContext} method from \textit{ContextManager} object. The call then initiates a monitoring service for the context based the parameters that is being passed with it.
 
 \begin{program}
   \begin{verbatim}
@@ -194,25 +198,27 @@ public void monitorContext (
 \caption{Function definition of the monitor context.}
 \end{program}
 
-As we can see in the function call, there are several parameters, let's look into them for more detailed understanding.
+As we can see in the function call, there are several parameters, let us look into them for more detailed understanding of the function's actual functioning.
 
 \begin{itemize}
-\item \textbf{\textit{ContextManagerServices} Parameter - } \textit{ContextManagerServices} is a enumeration defining various types of context's that can be monitored by the framework (see appendix 1), this specifies which of the context's the application wants to monitor using the framework.
-\item \textbf{\textit{minimumUpdateTime} Parameter - } This specifies the minimum time the application should receive an update about the specific context regardless of if any change has occurred or not, this is useful for application which want information about context at regular intervals to update their UI or other purposes.
+\item \textbf{\textit{ContextManagerServices} Parameter - } \textit{ContextManagerServices} is an enumeration defining various types of contexts that can be monitored by the framework [see Appendix 1], this specifies which context the application wants to monitor using the framework.
 
-\item \textbf{\textit{pollingTime} Parameter - } This parameter specifies the time interval after which the framework should poll the sensors or the operating system for information about the context. This parameter is particularly useful for information which do not have system provided callbacks (Broadcast/Intent architecture) and require polling or cases where power consumption for constant monitoring is steep and is not feasible.
+\item \textbf{\textit{minimumUpdateTime} Parameter - } This specifies the minimum time the application should wait before sending a forced broadcast about the context regardless if there is any change in the context or not. This is useful for application which want information about context at regular intervals regardless of the magnitude of the change.
 
-\item \textbf{\textit{flags} Parameter - } This is an extensible parameter which is essentially an array of flags which can be passed to the framework. This also allows for easy extension to the framework without much change in the call in the future. An example for the use of the parameter is for passing information about the source to use for location tracking.
+\item \textbf{\textit{pollingTime} Parameter - } This parameter specifies the time interval after which the framework should poll the sensors or the operating system for information about the context. This is specifically for information which do not have system provided callbacks (Broadcast/Intent architecture) and require polling or in cases where power consumption for constant monitoring is too steep and is not feasible (e.g. GPS based location monitoring).
+
+\item \textbf{\textit{flags} Parameter - } This is an extensible parameter which is essentially an array of flags which can be passed to the framework. This also provides a backward compatible way to extend the framework without changing the original function call. An example for the use of this parameter is for passing information about the source to use for location tracking to use while performing the polling task.
 
 \end{itemize}
 
-With this call one could essentially start monitoring any context that is available in the framework. Another requirement for an effective framework is to be able to deliver information to the specific application. In case of the parameters not provided the framework automatically allocates a default timing specific to the intent.
+With the help of this one call, one could start monitoring any contextual information that is made available in the present version of the framework. In case of missing timing information in the call, the framework uses a different constant value for monitoring tasks.
 
-[Figure 2 - Broadcast Intent Reciever Arch.]
+[Figure 2 - Broadcast Intent Receiver Arch.]
 
-Android provides a very effective methodology to transfer information between objects called Broadcast and Intent receiver architecture [E11, E12]. The working of the methodology is very simple yet very effective. As [Figure 2] explains we can ask for an object to register itself to the \textit{LocalBroadcastManager} to be notified in case it receives a broadcast with a particular name or tag which is referred to as \textit{action} in android.
+To notify the application about contextual information the Android platform provides a very effective methodology to transfer information between the framework with the help of \textit{LoalBroadcastManager} which sends a message called \textit{Broadcast} to all the \textit{BroadcastReceiver}. The working of the methodology is very simple yet very effective. As [Figure 2] explains we can ask for an object to register itself to the \textit{LocalBroadcastManager} to be notified in case it receives a broadcast with a particular name or tag which is referred to as \textit{action} in Android.
 
-The framework harnesses the power of this methodology in Android to provide a single point receiver to all contexts. 
+The framework uses the same flag for all the notifications with more detailed information inside the \textit{Bundle}.
+
 [Figure 3 - Framework Architecture]
 
 The application would have to register just once to the\textit{LocalBroadcastManager} for any and all context's it is monitoring. When the framework has an update it would send a broadcast, which would have the following components:
@@ -293,197 +299,245 @@ The sensor information gathering technique is primal in nature and lacks adaptiv
 
 Given enough time the framework can be expanded into a much more robust, functionally rich and highly customisable component which can be used in various kinds of studies and real world application. 
 
-\chapter{User Demographics Data Collection Application}
-The primary purpose of this project is to collect information about how the user interacts with his mobile device, the framework provides a foundation through which we can collect information about the contexts in which the user is using the device, but presently does not provide information about how the user interacts with the device's application and uses websites.
+\chapter{User Smartphone Usage Data Collection Application}
 
-The \textit{WebSense} application was designed for Android platform for the very purpose of collection of user app usage demographic collection along with contextual information. The application integrates with the context sensing framework described in chapter \ref{ContextSensingFramework} to extract contextual information of the user from the device.
+The most essential goal of this project is to devise a technique to gather information about how a real world user interacts with his mobile device on a day to day basis in his natural and unmoderated environment. The context sensing framework provides a very robust foundation using which we can gather information about the context in which the user is using the mobile device. But at present the framework does not consist of any possible way to monitor and gather information about mobile phone interaction of the user both in terms of web and application usage.
 
-There are two aspects of the application which were taken into consideration while designing the application. First was the actual development and effective technique that was to be used to monitor how the user interacts with the device, second is the value it provides to the user which should be lucrative enough for people to install even if they are not interested in the research value of the application.
+\textit{WebSense} is an application for the Android platform developed for the very purpose of collection of user application usage data collection along with the related contextual information. The application is integrated with the context sensing framework described in chapter \ref{ContextSensingFramework} which it uses to extract contextual information of the user.
+
+There were two aspects of the application which were taken into consideration while designing the architecture of the application. First was the actual development of the monitoring functionality to provide an efficient way that was to be used to monitor how the user interacts with the device in a ubiquitous way and eventually send it to a central data repository on the web for collective analysis. Second aspect was the utility value it provides to the user which is essential for crowd-sensing application as apps in the crowd-sensing domain should be lucrative enough for people to install even if they are not interested in the research value of the application (see section \ref{PlatformDeployment} for deployment challenges). In the following sections we look into each of the aspects and the various components which collectively provide a skeletal over which the application functions.
 
 \section{Application Usage Demographics Collection}
 
-Android is a very open platform in terms of providing data when we compare it with the next most popular operating system for mobile iOS, which restricts application in a sandbox [E9]. This allows us to monitor various minute details about user's smartphone interaction.
+Android is a very open platform in terms of providing access to data sources when we compare it with the other most popular operating system for mobile platforms such as Apple's iOS \cite{AppleiOSPolicy}. This allows us to develop application which can monitor user interaction in detail.
 
-The most essential requirement of any such application is to be able to make sure that it has an almost 100\% uptime, meaning it should be always running in the background and performing its tasks. A front end application provides user an option to terminate the process very easily by accident hence denying the change of gather information. However a background service on the other hand is usually not that easy to be terminated and does not hinder the user's mobile phone usage.
+The most essential criteria of any monitoring application is to maintain a near 100\% uptime, which means that the app should always be running in the background and performing the necessary operations. Implementing a front end interface provides user an option to terminate the process very easily by accident or intent hence denying the change of gather information. However a background service on the other hand is more complicated to be terminated and also ensures that no hinderance is caused to the user in performing his day to day mobile phone usage. Hence the architecture of the app consists of several of background services each with their own set of responsibilities. This, along with a design to ensure that the monitoring service is switched on in case of device restart, accidental termination by the operating system or in case of an internal malfunction causing the termination of the application provides the system to operate at a near 100\% uptime (see chapter \ref{PeformanceEval} for detailed evaluation).
 
-The application consists of several of background services each with their own tasks. 
+[Figure = Application Monitoring Architecture]
+
+Let us look into the various background services along with their role in the overall architecture of the system.
+ 
 \subsection{Application Usage Monitor}
-The first and foremost one is to monitor the user's application usage dedicatedly. This is done by the Service called \textit{AppUsageMonitor}. The service is a self-reviving service so in case it is terminated or malfunctions it revives itself, ensuring almost an 100\% uptime.
 
-Android provides an access to the currently active tasks with the \textit{ActivityManager} framework. The framework not only provides with the running tasks but provides it in the order of its screen presence, meaning using this information we can identify which application is currently running on the screen of the user and is interacting with. However as this is a polling tasks it has to be done very frequently to collect accurate information.
+The primal responsibility of the app is to monitor the user's application usage continuously and with certain level of dependability. This task is performed by the service \textit{AppUsageMonitor}. The service is a self-reviving service so in case it is terminated either by the operating system or due to a malfunction it revives itself within a matter of seconds, ensuring an almost 100\% uptime.
 
-Additionally, android also provides intents which one can listen to for detecting user's action of switching screen on and off, which in-turn means we can safely stop monitoring user's activity tasks when the phone is turned off hence saving crucial resources. 
+Since Android does not provide a broadcast or any sort of delegation methodology to know when the application is switched, the only possible approach to do this at present is a quasi-continuous monitoring of the device's application stack. An interval of 4-second was chosen between each scan since research has indicated that user's attention span switches between the device and the environment somewhere within this duration \ref{oulasvirta2005interaction}, hence we can assume that the user would switch applications as well at around the same frequency. Android provides access to the the list of currently active processes through the \textit{ActivityManager} class. The class not only provides information about the running tasks but also provides a mechanism to access the order of the application's screen presence. With this information we can identify which application is currently running and being interacted with on the device by the user.
 
-The application stores the information in a SQLite database, this includes package name of the application, start time, end time (Both in UTC timestamp format), duration of the run, location it was used at (subscribes to the framework, listens and stores location information constantly) along with the day of the hour the application was used at. Additionally, a flag marking the synchronisation state of the record is also maintained. Whenever an application switch is performed the data is written into the database hence minimising the chances of data loose incase of a malfunction or termination. A save is also performed in the scenario when location update is received while an application is running, hence there would be multiple instances of a constant application session if the user is moving. This is particularly useful in case of navigational applications.
+Android also equips its developers with intents which one can listen to for detecting user's action of turning the device's screen on and off. This allows us to stop monitoring user's activity tasks when the phone is turned off hence saving crucial resources.
 
-If the application is the default browser of the device, the app also detects the page user is viewing. Although, there is no direct way to perform this, android provides an API to access browser history [E17], the topmost object being the current page the user is viewing. Whenever user changes the webpage a new record is created and the time spent on the particular webpage is noted.
+The application uses SQLite database\footnote{ self-contained, transactional SQL database engine - https://sqlite.org/} to store the monitoring information. This includes package name of the application, start time, end time (Both in UTC timestamp format), duration of the run, location it was used at (subscribes to the framework, listens and stores location information constantly) along with the day of the hour the application was used at. Additionally, a flag marking the synchronisation state of the record is also maintained. 
+
+Whenever an application switch is performed the data is written into the database hence minimising the chances of data lose incase of a malfunction or termination. The information is also saved in the scenario when location update is received while an application is running, hence splitting a continuous session of the application based on the location. This is particularly useful in case of navigational applications as the user would keep it open over an extended period of time while his location changes constantly.
+
+If the application is detected to be the default browser of the device, the app also gathers information about the page user is presently viewing. Although, there is no direct way to perform this, android provides an API to access browser history\footnote{Browser Data Provider - http://developer.android.com/reference/android/provider/Browser.html}, the most recent record in history would be the page the user is viewing currently. Whenever user changes the URL a new record is created and hence the time spent on a particular URL is also recorded.
 
 \subsection{Contextual Information Monitoring}
-\textit{ContextBackgroundMonitor} class is also a background service which is responsible for registering and monitoring the contextual information. Presently it monitors all the contexts provided by the framework (see section \ref{contextType}). Its responsibility is to make sure that as soon as the service is initiated it subscribes to context information broadcast and whenever there is a message it saves it appropriately in the database. Since we are focusing on location for mapping the information and also providing user with information in relation to his location, all the context information is stored with the latest location information.
+\textit{ContextBackgroundMonitor} class is also a background service which is responsible for registering and monitoring the contextual information. Presently it monitors all the contextual data provided made available by the framework (see section \ref{contextType}). It is responsible is to make sure that as soon as the service is initiated it subscribes to all the available contextual information provider and whenever there is any new information made available by the framework it saves it in the database. Since we require information about location for mapping the information geographically and also have to provide user with information in relation to his location, all the context information is stored along with the latest location information attached to it.
 
 The class is initiated as soon as the monitoring begins and when the class is destroyed it releases all the receivers and initiates the stop procedure in the framework (see section \ref{ExternalHandling}) hence stopping monitoring process altogether.
 
 \subsection{Web Synchronisation Service}
-The sensing and the app monitoring generates a lot of content which then is stored in the database. This can be used for local analytics (see section [X]) but this application is a crowd-sensing application, meaning we are to analyse information of all the user as a collective. For this purpose, the information that is in the device has to be constantly sent to the server.
+The context sensing and the application usage monitoring generates a considerable amount content in terms of memory. This can directly used for the purposes of local mining (see section \ref{AppUsageInfo}) but this being a crowd-sensing application, we need the information at a central location to further analyse information of the user-base as a collective. For this purpose, the information that is in the local datastore has to be constantly sent to the remote server on the web.
 
-\textit{SyncManager} is the class responsible for synchronisation of the location content on the web. After a fixed interval the class is revived (if running only \textit{onCreate} is called) and it checks for records which have not been synced in the database. To avoid repetitive reads the monitoring services automatically increment count and store it on a preference file. If the criteria for data upload is met the information is uploaded in chunks of fixed size in the form of a JSON string and as soon as the data is successfully uploaded the records are marked as synced. The synchronising process users the end points provided by the web application and sends the data after compressing it with gzip [E18]. The records are sent with an authentication key to both validate and associate the records, this key is obtained during the login process [see section x and y].
-[Sync process algo - Criteria]
-The service is also responsible for periodically clearing old data which has been synced already and are outside the time-period in which they could be useful locally (30 days in this case).
+The class \textit{SyncManager} performs all of the synchronisation of the device with the web by uploading the information in the most efficient way possible. After a certain interval of time the class triggers a method to check for a possibility for a need of uploading of the information. Records which have not been synced in the database is the first criteria the method checks for. To avoid repetitive reads to count un-synced records the monitoring services automatically increments the count whenever a new record is added and stores it on a preference file, this file is read by the synchronisation process. If the criteria for data upload is met the information is uploaded in chunks of fixed number of records in the form of a JSON string and once the data is successfully uploaded the records that were sent are marked as synced. The synchronising process uses the end points provided by the web application and sends the data after compressing it using GZIP \footnote{GZIP File format specification -http://tools.ietf.org/html/rfc1952}. The records are sent with an authentication key to both validate and associate the records, this key is obtained during the login process (see section \ref{LoginInterface} and \ref{StoringInfo}).
 
-\section{User Interface \& Application Value}
-The purpose of the application is to collect data not only from people who participate in the research but from as many android user's possible. As previously conducted studies have shown that one of main issue when dealing with crowd-sensing application is that it is bottle-necked by the fact the whole research and the application's success and the amount of data gathered depends on the sole decision of the user to install and keep the application on his phone [ref demographics paper]. So to ensure people install and keep the application we need to provide the user some utility value through the application.
+[Sync process algorithm - Criteria]
 
-The user interface of the application which runs atop the data gathering services provides some feedback to the user and also helps in collecting some user related information.
+The service is also responsible for periodically clearing old data which has been synced already and are beyond the time-period which is relevant to the application (30 days in this case).
 
-\subsection{Login interface}
+\section{User interface \& Providing utility value to the user}
 
-The login interface is the initial screen of the application where in the user provides the below mentioned information if he is registering or just logs into the application if he has already registered.
+The monitoring and reporting aspect of the project could have been done without actually a front end with everything entirely handled by background services but the primary test subjects of this application are not a selective group of people, like any crowd-sensing application the future research based on this application tends to make this available to as many users as possible, not only the people who are interested in the research aspect but common public with Android devices. As we will see later on in chapter \ref{challenges} one of main issue when dealing with crowd-sensing application is that it is bottle-necked by the fact that the entire research, application's widespread usage and the amount of data gathered depends solely on the decision of the user to install and keep the application on his phone. So to ensure widespread participation and retention of the application we need to provide the user utility value through the frond end of the application, so regardless if the user is concerned with the study or not he would still have a reason to install the application.
+
+The user interface of the application which runs atop the data gathering services provides 
+information and feedback to the user and also helps in gathering certain user's personal information.
+
+\subsection{Login/Registration interface}
+\label{LoginInterface}
+
+The login/registration interface is the initial screen of the application where in the user provides the below mentioned information if he is registering or just logs into the application if he has already registered.
+
 \begin{itemize}
-\item Email Address
-\item Password (For associating records on multiple devices using same email.)
-\item Gender (Provides a feature to use in classification.)
-\item Employment Status (Additional parameter, which can be used in learning algorithms to verify information extracted from patterns)
-\item Consent to allow monitoring (along with a link to the End user's license agreement)
+\item Email Address - Allows us to have a medium to contact the user in the future.
+\item Password - For authentication purposes in case the user logs out or wants to login on another device.
+\item Gender - Can be used as an metric to perform future studies.
+\item Employment Status - Additional parameter which can be used in future studies.
+\item Consent to allow monitoring - Along with a link to the End user's license agreement.
 \end{itemize}
 
-An option to log out of the application is also provided inside the application, in case the user wants to stop the monitoring or wants to do something privately.
+The application allows multiple sessions using the same credentials on multiple devices. An option to log out of the application is also provided inside the application, in case the user wants to do something privately or wants to stop monitoring completely.
 
+\subsection{Application usage information}
+\label{AppUsageInfo}
 
-\subsection{Application Usage Information}
+Application usage of the user is being constantly monitored by the application in the background, this interface provides a view by accumulating the total usage over a certain period of time. The interface provides information about the total usage in a very visual way allowing users to compare the various application. An option to filter the information to a particular duration (day, week and month) is also available.
 
-The usage of the various applications which is being constantly tracked by the background monitoring services is provided to the user in the very clean and minimalist user interface along with an option to filter the information to a particular duration (day, week and month).
+\subsection{Application and web usage trends}
 
-This information is extracted from the devices local information database, by aggregating the overall usage of each of the application.
+This provides similar as the previous screen but instead of providing information for user's application usage, it provides aggregated information about the trends throughout the user-base of the application. It shows the trends of application usage based on the data accumulated over the period of time on the web server over a period of time. The web API has an end point which provides the information for the required duration of time (day, week or month).
 
-\subsection{Application Usage Trends}
-
-This provides similar information but instead of providing information for user's application usage, it provides aggregated information about all the user's using the application. It shows the trends of application usage based on the data accumulated. The web API has an end point which provides the information for the duration required for (day, week or month).
-
-The application's information is also provided along side, hence icon and the name of the application is shown along with an option to install the application if it is not already installed.
-
-\subsection{Web Usage Trends}
+The application's information is also provided along side, hence icon and the name of the application is shown along with an option to install the application if it is not already installed. This acts as an recommendation system for the user to try new application based on popularity.
 
 Along with the application usage trends the app also shows information about the web usage trends, showing information along with some content and images from the websites popular among the masses in the given duration.
 
 
-\subsection{Localised Web and App Usage Trends}
+\subsection{Localised web and app usage trends}
 
-The information about the app and web is also provided for a limited geographical area, meaning the app provides what is popular in the user's current area. This can be very helpful for example, if the user is opens the application at a train station the app would provide information about the apps and websites people use there, which are most likely to be the ones providing information about the the timings of the train.
+The information about the app and web is can also be restricted to the present geographical area. The app has the capability to present the user information about what is popular in the user's current area. This can be very helpful for example, if the user is opens the application at a train station the app would provide information about the apps and websites people use there, which are most likely to be the ones providing information about the the timings of the train.
 
-The geographical radius is decided on the server the location is provided by the context sensing framework which then is passed along with the web request. The process of handling this request is discussed further in section [x].
+The geographical radius is decided on the server the location is provided by the context sensing framework which then is passed along with the web request. The process of handling this request is discussed further in detail in section \ref{ExtractInfo}.
 
 \section{Web API and Feature Extraction}
-The application provides a very robust way to gather information about the user and also to do some local analytics and processing for him to show his usage trends. However, to provide information for a community the application has to analyse data not just from a single user but from all the users using the application. This can be done with a web application capable of receiving information, saving it, processing it, extracting relevant information and providing useful information and maybe even do prediction.
 
-A web application was build and deployed on the internet for this purpose. The application is build using Node.JS [E19] which provides a very strong foundation to build high performance web api's and application which have to deal with an increasing number of web requests [e20]. The backend for the application is a MongoDB non-relational document based database [e21] which provides various functionalities to process and extract information along with a lot of scope to improve the performance and handle scaling of the web application.
+As we have seen the application provides a robust yet lucrative way for the users to provide their application usage information, however in order to achieve this at a larger scale and not just for a single user we need a web server to handle storing of information, extract features and finally process it to provide meaningful information for the application to display and even perform predictive tasks at a later stage. For this purpose a web application was build and deployed on the internet. The application is build using Node.js \footnote{Even-driven JavaScript backend - http://nodejs.org/} which provides a very reliable framework to build high performance web API's,  dealing with an increasing number of web requests \ref{tilkov2010node} which is bound to scale over time. The datastore for the application is a MongoDB\footnote{Non-relational, Document based database - https://www.mongodb.org/} database which provides various functionalities to process and extract information efficiently. It also provides lot of features to improve handling of high request rates and take care of the needs for scalable systems.
 
-The web app is essentially a collections of RESTful API end points with JSON data format to store, process and display/provide information. Let us briefly go through the available api's and how they work. All the service accept gzip request to enable minimal data usage. The server is presently hosted on an Amazon EC2 instance of a minimal size.
+The web app is essentially a collections of RESTful API end points with JSON data format to store, process and provide information, all of whom incorporate GZIP compression in their requests and responses to decrease bandwidth being used. It also constitutes of a analytics dashboard which showcases various metrics from the server. Let us briefly go through the available API endpoints and their internal working.
 
 \subsection{Storing Information}
+\label{StoringInfo}
 
-The application stores various types of information. The first and foremost request the app makes is to register or login, the information about the user is stored in the \textit{user} collection. The user document is designed to handle multiple devices and multiple sessions running simultaneously, the document model also stores other information that is sent by the app when the user registered.
+The application stores various types of information. The first possible request an app can make is to register or authenticate the user. The information about the user is stored in the \textit{user} collection. The user document is designed to handle multiple devices and multiple sessions running simultaneously. The document model also stores other information that is sent by the app when the user registered which can be used as a research parameter for future studies.
 
-When authenticated the service checks for the user record along with the device information and either creates or updates the device information that is provided with the login information and returns a unique authentication key which can be used for all further requests.
+When authenticated the service checks for the user record along with the device information and either creating or updating the device information that is provided with the login information and returning a unique authentication key which can be used for all further requests.
 
 Storing of web and app usage information is more complex, when the service is called the first thing the server checks is if it is a valid service in terms of the authentication key that is being supplied. If it is, then it starts processing the information that is provided. The user is almost instantly provided a OK status message while the processing is going on.
 
+
+
 [Figure app processing information]
 
- It collects all the package names that were sent in the requests and checks the existing database of application information for their records, the ones which are new are then sent to a different service call which asynchronously checks each of the package name and fetches information about the application from the app store by scrapping the web page for information.
- 
-The location information is also corrected and stored in the required format to perform geospatial queries later on.
 
-The process for storing context information is also identical, except there is not much processing at present.
+It collects all the package names that were sent in the request and checks the existing collection of application information for their records, the ones which are new are then sent to a different service call which asynchronously checks each of the package name and fetches information about the application from the app store by scrapping the web page for information. The location information is also corrected and stored in the required format to perform geospatial queries later on.
+
+The process for storing context information is also identical, except there is not much processing at present and once the information is cleaned and converted into required format it is directly pushed into the \textit{context} collection.
 
 \subsection{Extracting meaningful information and patterns}
+\label{ExtractInfo}
 
-The web app is also responsible to identify and provide patterns to the application on the device about application and web usage. The information is extracted from the database using the MapReduce technique which MongoDb supports. 
+The web app is also responsible to identify and provide patterns identified from the stored information to the application on the device about application and web usage. The information is extracted from the database using the MapReduce technique which MongoDb supports. The details of the technique are explained in the Figure [x].
 
-The process for extraction of information usually involves aggregating the app usage for each package, however,this can also accommodate things like duration and location information. Location filtering uses the geospatial functions that is provided by mongoDB to reduce the records to a particular area only. The radius along with things such as packages to ignore can all be configured in the config file. The diagram above shows in depth the working of these queries.
+The process for extraction of information usually involves aggregating the app usage for each package, however,this can also accommodate filtering based on parameters such as like duration and location information. Location filtering uses the geospatial functions that is provided by mongoDB to reduce the records to a particular area only. The radius along with things such as packages to ignore can all be configured in the config file for the server allowing dynamic changes to the server. The diagram above shows in depth the working of the functionality.
 
 \section{Possible Improvements}
 
-The application and the framework was both developed over a period of 1.5 months. The purpose of this project was to create a foundation for a robust data collection application and a framework which would be re-useable component for context extraction. This being said, there are various improvements that can be done the application and the web application.
+The application and the framework were both developed over a period of 1.5 months. The purpose of this project was to lay an initial foundation for a robust data gathering application along with a framework which would be re-useable component for context extraction both of which can be re-shaped and used for studies beyond the scope of the present project. This being said, there are various improvements that can be done in the existing application and its web counterpart.
 
-\subsection{Android App Shortcomings  and Improvement}
+\subsection{Android App - Shortcomings and possible improvements}
 
-The android application lacks several features in this first release. Firstly, improvements that were mentioned related to the framework (see section \ref{contextShortcomings}) would improve the overall performance of the app.
-
-The application presently provides analytics and trends information which is very generic which can be customised and converted to a very personalised recommendation system (see section \ref{RecommendationSystem}).
-
-\subsection{Web App Improvement}
-
-The web component can be improved considerably both in terms of features that it provides and in terms of performance. 
+The android application has a few shortcomings in this first release which can be improved over the period of time. 
 
 \begin{itemize}
 
-\item Presently there is no web front end for the analysis of the information that is being gathered, only way to access and analyse the information is by directly accessing the information though the database.
+\item Firstly, any improvements that were mentioned in relation to the framework (see section \ref{contextShortcomings}) would effect the overall performance of the app, both in terms of resource consumption and the amount of data that can be gathered using the application.
 
-\item The web component at present does not deal much with the context information, it just uses app usage and location information to provide the various results, future improvement can make use of all the available information. 
+\item The application at present fails in monitoring web usage if they not performed on the default browser which is accessible by the Browser data provider (\textit{Chrome} on Android 4.0 and above) in the Android SDK. This can effect the overall demographics of the web usage data being collected as interest of the users using other applications to browse internet would not be registered by the application.
 
-\item The web component's security can be improved by using bcrypt to store and encrypt private information.
+\item The application also fails at monitoring tasks which can perform their functionality in the background while user is either using some other application or has switched off the device's screen for example applications such as music players and radios can play audio for the user while running in the background without having the front-end open.
 
-\item The database connection at present picks a connection from a pool of 10 connections. There are several things that can be done to allow fast network transactions.
+\item The application presently provides analytics and trends information which is very generic which can be customised and converted to a personalised recommendation system among various other possible improvements that can be done to provide more value to the user as an utility application (see section \ref{RecommendationSystem}).
+\end{itemize}
+
+\subsection{Web Component - Shortcomings and possible improvements}
+
+The web component can be improved considerably by adding more features and also by improving overall performance and scalability of the system.
+
+\begin{itemize}
+
+\item The web component at present does not deal much with the context information, it just uses app usage and location information to provide the various results, future features can make use of all the available information both for research purposes and also for implementing in the application. 
+
+\item The web component's security can be improved by using \textit{Bcrypt}\footnote{Bcrypt: Bowlfish file encryption - http://bcrypt.sourceforge.net/} to store and encrypt private information. Additionally, more precautions can be taken by disassociating the contextual data from the user (see section \ref{UserPrivacy}).
+
+\item The database connection at present picks a connection from the connection pool of the driver, which is a reusable pool of already active connection helping in reducing frequency of opening and closing of connections \cite{MongoLab2013}. There are several things that can be done to improve the speed network transactions.
     \begin{itemize}
-        \item Sharding [E23] maybe applied and to the mongodb instance to improve the performance of the application.
-        \item At present the application relies on mongodb to deliver it data, which in turn reads from the database and provides the required data. With the increasing load this would not be feasible. A caching layer which would store the information in memory would be required. Technologies which are meant to handle rapidly changing content in the memory such as Redis can be used for this purpose in the future.
+        \item Sharding\footnote{MongoDB Sharding - http://docs.mongodb.org/manual/sharding/} maybe applied and to the MongoDB instance to improve the performance of the application and handle increase in the data needs.
+        \item At present whenever there is an API call the web service triggers the MongoDB driver along with its customised query which reads from the database process it and returns it back to the service to be delivered further to the device. Considering the number of records being created by the devices, once this application has become widespread this process would start taking more and more time to process the request. A caching layer which would store the information in memory instead of reading raw information from the database and processing it again can improve the performance of the queries. Technologies which are meant to handle rapidly changing content in the memory such as Redis\footnote{Redis: An Open source key-value datastore - http://redis.io/} can be used for this purpose in the future.
         
-        
-        \item Use of MapReduce technique to perform various complex functions in the application benefits the overall performance, but at present each time the service is called the MapReduce is performed. This can be avoided by using incremental MapReduce [E24] which automatically reduces the information when new information is added incrementally hence reducing the load on the server by a considerable amount.
+       \item Use of MapReduce technique to perform various complex functions in the application benefits the overall performance, but at present each time the service is called the MapReduce process is performed. This can be avoided by using incremental MapReduce\footnote{MongoDB: Incremental MapReduce - http://docs.mongodb.org/manual/tutorial/perform-incremental-map-reduce/} which automatically reduces the information when new information is added incrementally hence reducing the load on the server by a considerable amount. Future implementations can also look into a Hadoop based MapReduce implementation on the existing MongoDB instance as it has shown promising results \cite{dede2013performance}.
     \end{itemize}
 
 \end{itemize}
 
 
 
-\chapter{What can be done with the data}
-The purpose of this stage of the experiment is to provide an effective way to gather information from the user at a very large scale. Presently this information is being stored and analysed to provide statistics and trends in a particular area and the user community. But there is much more that can be done with the application.
+\chapter{How can the information collected be used}
 
-Let us look at a few possible novel approaches to use the information that has been gathered in future researches.
+The primary purpose of this stage of the experiment is to design an effective method to gather information from the user on a large scale along with an effective delivery method. The information being gathered is presently stored and and basic feature extraction techniques are being used to provide analytics and trends within the community and in a certain geographical area. However considering the diversity and richness of the data that is and will be available as a result of this application can provide useful input to serval interesting areas of research and help develop various practical applications.
 
+Let us look at a few possible novel approaches to use the information that has been gathered in the near future.
 
 \section{Intuitive Application Launcher}
 
-A very simple application on the lines of [ref. falcon paper] and which we are already working on would be to build an intuitive launcher based on the information that has been gathered. However, rather then actually launching the application we can provide a much more simplified approach.
+A very simple application on the lines of the FALCON system \cite{yan2012fast} which we are already working on would be to build an intuitive launcher for Android devices based on the predictions that would be derived from the gathered information. However, rather then actually launching the application we can provide a much more simplified approach by not pushing the user to make a choice and saving considerable amount of resources.
 
-[Figure idea screenshot]
+[F10]
 
-On switching on the screen the application would present the user with options on the lock screen itself to launch application, the list of application for the user to choose from without opening the application list, this kind of predictive computing can be very helpful for the user and save him from searching for the application.
+Mobile devices usually turn their screens off if there is no activity from the user. Whenever user has to use the device the screen has to switched on and the lock has to be opened. In the event of the screen being switched on, the application which would be integrated with the device's lock screen would present the user with options to launch certain applications. The list of application for the user to choose from would be modified based on time and location. This kind of predictive computing can be very helpful for the user and can prove to make the user's smartphone usage more efficient.
 
-We already have contextual information about the user and the app usage, we would require a combination of both web and local processing to actually provide the options.
+We already have contextual information about the user along with his application usage pattern which we can associate to extract a possible list of application he might want to use. An effective development method with the processing divided between the device and the server would be required to make sure the list can be provided without internet connectivity.
 
-Additionally, this system can learn based on the choices user makes on the launch screen, whether or not he selects one of the app provided and eventually improve itself.
+Additionally, the application can learn and improvise itself based on the choices the user makes on the launch screen, i.e. whether or not user selects an application from the list that was provided hence making the application better at predicting application selection over time.
 
 \section{Recommendation System}
 \label{RecommendationSystem}
-The application already uses the existing information available to provide recommendations as per trends but this functionality can be extended further, presently the app gives a very generic recommendation both for overall user-base and location specific recommendations, but improvements can be made to recommend people what to use based on their specific usage trends, for example if a person uses a certain application for ordering food however there is another app which is popular in his region (making an assumption it might actually be better the the one user has more relevant results for his location) the application can make a suggestion to the user to try out the application.
 
-Similar functionality can also be developed for web pages, a recommended reading list can be formulated based on the user's reading habits and the trends, this would require a natural language processing of the content of the webpages to understand the nature of the content on the website. The application would have to understand the user's web usage pattern and derive a web profile for the user and improving over a period of time. This would be similar to [E22] but for mobile devices hence would be able to learn and adapt faster, also since the content which is recommended is already popular among people the possibility of a favourable recommendation is more likely.
+the present version of the application provides recommendation in the form of \textit{What's Trending} using the information that is available about the user's app usage and the location context. The recommendations however are very generic in nature, i.e. recommendations on the basis of the user-base or geographical area. There can be several improvements to the existing feature. The system could recommend users what is trending based on their mobile usage pattern, for example if a person uses a certain application for ordering food frequently and there is another application which is popular in the geographical region the application can make a suggestion to him to try out the other application. The prediction can also be influenced by other information that we have collected like gender and user's employment type.
+
+A similar feature can also be developed for the web usage. A recommended reading list can be compiled based on the user's reading habits and the present trends. To achieve this in practicality would require natural language processing to analyse the content of the webpages to understand the relevance of the link. The application would have to understand the user's web usage pattern and derive a web profile for the user and improving it over a period of time based on user's choices and web usage. The content which is recommended is already popular among people the possibility of a favourable recommendation is more likely. This would be similar to the idea presented in \cite{BalabanovicAWP1997} but would be for mobile devices. Which would help the system to learn and adapt faster.
 
 
-\section{Pre-Caching}
-We can use the information acquired from the gathered data about popularity of applications at certain location and time along with information about user's preferences to intelligently launch application in the background or to load content on to the devices locally beforehand hence reducing the wait time for the user.
+\section{Content \& Application Pre-Caching}
 
-Additionally, this can be converted and expanded into a much larger framework. We could use the information from the server and transfer into local WiFi access points, which can then use the web usage information and intelligently cache websites/webpages which are popular in the vicinity of the access points. This would require an integration of the server and the WiFi access point. This would provide a very large scale increase in the speed by which the popular websites are loaded on the mobile device hence providing a much more smoother experience. However, this process has to be designed intelligently else it can result in providing stale information to the user.
+Information gathered about content being accessed on the web or application being launched alongside the location context provides us an insight about what is popular in a particular geographical region. This as discussed earlier can be personalised to provide what user tends to view or use at a particular location frequently. Application can be launched and kept running in the background as to reduce the wait time for the user when the application is launched and possibly loading itself into the memory or maybe loading content from the web.
 
+[Web caching Interface Diagram]
+
+In relation to the web, this information can be used in a very different scenario. With the knowledge about localised trends on the web an interface can be created which can be made accessible externally to provide possible websites people might use at a particular location. This information can then be linked with the local cellular network or WiFi access points and the content can be cached on the network itself provided improved loading time for the users of the network hence improving the overall user experience. This can be further improvised further by anticipating and then caching possible future navigation from the current website reducing the loading time of requests even further beyond what is achievable using the trends information \cite{cheluvaraju2011anticipatory}.
 
 \chapter{Performance Evaluation}
-\chapter{Challenges \& Downfalls}
+\label{PeformanceEval}
+
+\chapter{Challenges \& Concerns}
 \label{challenges}
-\subsection{Deployment \& Platform Restrictions}
-The present application is meant to be used only with Android operating system, this restricts the users with other devices to participate in the stay and moreover hamper overall demographics of the study, even though [e25] shows that android has a majority in mobile marketshare there is still a considerable number of user's using other operating systems and also this figure can vary based on the location where the survey is conducted, hence making it very important to conduct the study on a broader scale.
 
-However, lot of what is possible would not be possible on operating systems such as iOS. iOS is governed by a sandbox policy [E9] which does not allow to access information (such as application on top) other then its own.
+As with any research, there are several challenging aspects and concerns that are to be considered both in terms of the present scope of the application/framework and in terms of the future prospects where the research can be used. Let us briefly look into some of the consequential challenges that are to be concerned.
 
-\subsection{Data privacy concerns}
-\subsection{Accident Behaviour Modification}
+\section{Platform Restrictions \& Deployment}
+\label{PlatformDeployment}
+The framework and the application in this report were both developed to be used on Android operating system, this restricts the user who can participate in the study to only one's with a smartphone which runs Android and users with other devices cannot contribute to the study in any way. 
+
+This not only can cause an overall decrease in the number of participants, it can also effect the demographics and the data collected as there can indeed be a variation in smartphone usage based on the operating system. Even though \cite{gartnerMobileSurvey2013} shows that Android holds a majority among the masses in mobile marketshare, there are still a considerable marketshare using other operating systems and also the demographics of operating system usage can very widely across geographies. This presents a very serious concern and also a possible direction to look into in the future research as it is being faced by other researchers involved in similar crowd-sensing applications \cite{balan2011real}. 
+
+However, Android is a very flexible platform which lets us build applications which can access such a wide array of information lot of what is currently not possible on other operating systems such as iOS. iOS, for example is governed by a sandbox policy \cite{AppleiOSPolicy} which does not allow to application to access information beyond its assigned limit (such as extracting information about the running applications).
+
+Also, being a crowd-sourcing application, it is to be installed from a application store for android which presents another problem. This puts the decision of participation in the study solely on the fact that the user recognises the application on the store, installs and retains it on his device. The participation rate would vary depending on the application's popularity and would take some time to provide a considerable dataset which is explained further in \cite{xiao2013lowering}, it also recommends on how to remove installation of the application from the critical path but is presently not possible on Android for the type of information we require.
+
+\section{Resource Utilisation}
+
+The purpose of the application is to monitor the how the user interacts with the smartphone and to observe the various contexts and sensors, which means that it has to quasi-continuously execute series of scans and poll sensors/API's in order to extract the required information. The extracted information has to be stored on the disk and also has to be sent to the web server frequently for analysis using the internet connection of the device. All of these processes require a considerable amount of processing power, battery power and internet bandwidth (which in-turn means the user may incur some monitory expense), hence making this a very critical aspect of the application which would have to be optimised.
+
+For the application to be able to gather realistic information from the user it requires to be able to do it in an ubiquitous way, which would not be possible if the application is consuming too much of resources hence causing reduction in the average battery cycle of the smartphone or reducing the data bandwidth available to other apps hence making the connectivity a bottleneck for other application and causing the user experience of the applications to deteriorate. 
+
+Making the application perform all the required tasks while being efficient enough to have a very minimal footprint on the device was one of the key challenges of the project. Various steps were taken during development to make sure that the resource utilisation is kept to a minimum (see chapter \ref{PeformanceEval} for detailed evaluation). For example, the application has an optimised synchronisation process, it prefers synchronisation of records on a WiFi connection rather then a cellular data connection, however if a threshold is reached in the collected information it tries to synchronise on cellular data network to reduce changes of data loss. The polling tasks of the framework are programmed to be functioned at fixed intervals which are specific to tasks and has a direct correlation with the type of information it provides, power consumption and required level of freshness of the information.The overall polling of context is done by the framework at certain fixed intervals each reflecting on the power consumption and the requirement for freshness of the data.
+
+The resource utilisation can further be improved by developing the framework to perform adaptive sensing instead of scanning at fixed intervals. We can also do some pre-processing on the data (e.g. remove non required elements) hence reducing the overall bandwidth usage of the application. Deriving a relation between sensing rate and the power level of the device can help improve the battery life of the device. Sources of information which consume lesser power should be given preference for example using network instead of GPS for location detection is proven to save resources with an acceptable location accuracy \cite{zhuang2010improving}.
+
+\section{Data Privacy}
+\label{UserPrivacy}
+One of the most common and possibly the most serious concern while developing a system that deals with user's personal information is privacy. Some argue that it is the system developer's responsibility to make sure the about taking into consideration the privacy of the user and his information \cite{adams2001privacy}. However it is essential to understand privacy in these systems does not just stop at ensuring restricted and authorised access of information through secure channels, there are several other technical and ethical aspects to it.
+
+The application collects considerable amount of information about the end-user and stores it remotely, which allows a possibility for the user to profile the user based on the information  by third party which the user might not permit if asked for. It is not compulsory that the records have to be linked to the user, inferences can be derived by using contextual information that is available along with external information sources to identify events and user activities \cite{minch2004privacy}. Hence, keeping the information secure and impossible to use for identification from preying hands is very essential.
+
+The first step which several usability studies mention in relation to such system's privacy aspect is to be transparent about the process that the application follow. Taking the user's consent and providing proper explanation about the reason for collection of each contextual information from the user.\cite{SymmKK2006,picard2002computers} Providing an insight on the data that is being collected and the subsequent use it would be put to allows the end-user to take a stand on whether or not he would allow it to continue.
+
+The possible use of the data gathered about user's activities, context and patterns can be used to recommend information to the user in the future \ref{RecommendationSystem}. This may result in causing a subliminal behaviour changes which can very well be the purpose of the application as further demonstrated in various app mentioned in \ref{lathia2013smartphones} however it can also be an repercussion of the app and may also cause a negative implication (for example, the application may recommend the user entertainment/social networking application while he is working based on his overall usage trends hence interrupting him and causing distraction). The control of how recommendations are provided or even how the application would be effecting the user's behaviour should hence be in the hands of the user and not the developer. In addition to this the application should also provide the user the ability to discontinue monitoring whenever he wants, which is taken care of in the form of a logout option in the application which terminates all monitoring tasks.
+
 \chapter{Related Work}
 \chapter{Future Work}
 \chapter{Conclusion}
 Practical usage of the information as we have seen is a lot, however, this information can also understand various aspects of people and mobile phone usage behaviour in a better way.
 
 
-\bibliographystyle{ abbrv}
+\bibliographystyle{chicago}
 \bibliography{mini_project_report}
 
 %APPENDICES
