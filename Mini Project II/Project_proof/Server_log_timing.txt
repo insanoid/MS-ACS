@@ -1,0 +1,17 @@
+GET /app/trends/1395963056284?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 199ms - 3.18kb
+GET /app/trends/1398036656284?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 113ms - 3.19kb
+GET /app/trends/1398639600000?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 22ms - 625b
+
+
+GET /web/trends/1398639600000?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 11ms - 2b
+GET /web/trends/1398036656284?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 22ms - 10.76kb
+GET /web/trends/1395963056284?auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15 200 27ms - 7.53kb
+
+
+
+GET /app/nearby/1398639600000?lng=-1.9264433&auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15&lat=52.4573128 200 35ms - 1.63kb
+
+
+GET /app/nearby/1398036656284?lng=-1.9264433&auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15&lat=52.4573128 200 75ms
+
+GET /app/nearby/1395963056284?lng=-1.9264239&auth_token=28edda7688c5b5f0f5bd0cec2efe4e29&limit=15&lat=52.4572907 200 109ms

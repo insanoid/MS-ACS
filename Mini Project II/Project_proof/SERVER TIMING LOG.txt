@@ -1,0 +1,327 @@
+{
+    "op": "query",
+    "ns": "websensedb.system.indexes",
+    "query": {
+        "expireAfterSeconds": {
+            "$exists": true
+        }
+    },
+    "ntoreturn": 0,
+    "ntoskip": 0,
+    "nscanned": 8,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(98),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(3),
+            "w": NumberLong(4)
+        }
+    },
+    "nreturned": 0,
+    "responseLength": 20,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:12.485Z"),
+    "client": "0.0.0.0",
+    "allUsers": [
+        
+    ],
+    "user": ""
+}{
+    "op": "query",
+    "ns": "websensedb.system.profile",
+    "query": {
+        
+    },
+    "ntoreturn": 0,
+    "ntoskip": 0,
+    "nscanned": 1,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(193),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(6),
+            "w": NumberLong(4)
+        }
+    },
+    "nreturned": 1,
+    "responseLength": 406,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:14.193Z"),
+    "client": "anonymous unix socket",
+    "allUsers": [
+        {
+            "user": "root",
+            "userSource": "admin"
+        }
+    ],
+    "user": "root@admin"
+}{
+    "op": "query",
+    "ns": "websensedb.users",
+    "query": {
+        "device_info.auth_token": "28edda7688c5b5f0f5bd0cec2efe4e29"
+    },
+    "ntoreturn": 1,
+    "ntoskip": 0,
+    "nscanned": 2,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(197),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(5),
+            "w": NumberLong(5)
+        }
+    },
+    "nreturned": 1,
+    "responseLength": 321,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:30.290Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}{
+    "op": "command",
+    "ns": "websensedb.$cmd",
+    "command": {
+        "mapreduce": "appusage",
+        "map": "function () {\n\t\t\t\t\temit(this.package_name, this.active_time)\n\t\t\t\t}",
+        "reduce": "function (key, values) {\n\t\t\t\t\treturn Array.sum(values);\n\t\t\t\t}",
+        "out": {
+            "inline": 1
+        },
+        "query": {
+            "package_name": {
+                "$nin": [
+                    "com.android.systemui",
+                    "com.google.android.googlequicksearchbox",
+                    null,
+                    "android",
+                    "com.android.settings",
+                    "com.sec.android.launcher",
+                    "com.sec.android.app.launcher"
+                ]
+            },
+            "start_time": {
+                "$gt": "1398639600000"
+            }
+        }
+    },
+    "ntoreturn": 1,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(18343),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(9),
+            "w": NumberLong(4)
+        }
+    },
+    "responseLength": 330,
+    "millis": 18,
+    "ts": ISODate("2014-04-27T23:48:30.314Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}{
+    "op": "query",
+    "ns": "websensedb.appinfo",
+    "query": {
+        "package_name": {
+            "$in": [
+                "mem.usage",
+                "com.google.android.gallery3d",
+                "com.uob.websense",
+                "edu.umich.PowerTutor"
+            ],
+            "$exists": true
+        }
+    },
+    "ntoreturn": 0,
+    "ntoskip": 0,
+    "nscanned": 78,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(212),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(3),
+            "w": NumberLong(3)
+        }
+    },
+    "nreturned": 2,
+    "responseLength": 624,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:30.316Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}{
+    "op": "query",
+    "ns": "websensedb.users",
+    "query": {
+        "device_info.auth_token": "28edda7688c5b5f0f5bd0cec2efe4e29"
+    },
+    "ntoreturn": 1,
+    "ntoskip": 0,
+    "nscanned": 2,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(175),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(7),
+            "w": NumberLong(6)
+        }
+    },
+    "nreturned": 1,
+    "responseLength": 321,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:34.583Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}{
+    "op": "command",
+    "ns": "websensedb.$cmd",
+    "command": {
+        "mapreduce": "appusage",
+        "map": "function () {\n\t\t\t\t\temit(this.package_name, this.active_time)\n\t\t\t\t}",
+        "reduce": "function (key, values) {\n\t\t\t\t\treturn Array.sum(values);\n\t\t\t\t}",
+        "out": {
+            "inline": 1
+        },
+        "query": {
+            "package_name": {
+                "$nin": [
+                    "com.android.systemui",
+                    "com.google.android.googlequicksearchbox",
+                    null,
+                    "android",
+                    "com.android.settings",
+                    "com.sec.android.launcher",
+                    "com.sec.android.app.launcher"
+                ]
+            },
+            "start_time": {
+                "$gt": "1395963056284"
+            }
+        }
+    },
+    "ntoreturn": 1,
+    "keyUpdates": 0,
+    "numYield": 56,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(324775),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(173078),
+            "w": NumberLong(6)
+        }
+    },
+    "responseLength": 5236,
+    "millis": 175,
+    "ts": ISODate("2014-04-27T23:48:34.760Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}{
+    "op": "query",
+    "ns": "websensedb.appinfo",
+    "query": {
+        "package_name": {
+            "$in": [
+                "com.whatsapp",
+                "com.viber.voip",
+                "com.sgiggle.production",
+                "com.google.android.apps.plus",
+                "com.uob.websense",
+                "com.android.dialer",
+                "com.google.android.talk",
+                "com.nike.plusgps",
+                "com.google.android.dialer",
+                "com.facebook.katana",
+                "com.android.chrome",
+                "com.teslacoilsw.launcher",
+                "com.google.android.gm",
+                "com.bscotch.floprocket",
+                "com.facebook.orca"
+            ],
+            "$exists": true
+        }
+    },
+    "ntoreturn": 0,
+    "ntoskip": 0,
+    "nscanned": 78,
+    "keyUpdates": 0,
+    "numYield": 0,
+    "lockStats": {
+        "timeLockedMicros": {
+            "r": NumberLong(302),
+            "w": NumberLong(0)
+        },
+        "timeAcquiringMicros": {
+            "r": NumberLong(4),
+            "w": NumberLong(3)
+        }
+    },
+    "nreturned": 12,
+    "responseLength": 3886,
+    "millis": 0,
+    "ts": ISODate("2014-04-27T23:48:34.767Z"),
+    "client": "127.0.0.1",
+    "allUsers": [
+        {
+            "user": "karthikeyaudupa",
+            "userSource": "websensedb"
+        }
+    ],
+    "user": "karthikeyaudupa@websensedb"
+}

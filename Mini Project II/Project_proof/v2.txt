@@ -1,0 +1,18 @@
+> db.contextinfo.find({"position":[0,0]}).count()
+868
+> db.contextinfo.find().count()
+6480
+
+
+> db.contextinfo.find({"user_id" : ObjectId("5358304e5f1fa3f44c07f7dc")}).count()
+3872
+> db.contextinfo.find({"user_id" : ObjectId("5358304e5f1fa3f44c07f7dc"),"content_type" : "WIFI_UPDATE_NOTIFY"}).count()
+2826
+
+
+> db.contextinfo.find({"content":[],"content_type":"EVENT_UPDATE_NOTIFY"}).count()
+2898
+
+
+54.186.15.10:3001/context/stats?startTime=1398294000000&endTime=1398553200000
+54.186.15.10:3001/app/stats?startTime=1398294000000&endTime=1398553200000
