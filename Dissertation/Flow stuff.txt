@@ -1,0 +1,40 @@
+RCP Design
+IP Routers
+
+4DArchitecture
+Routing tables
+Backbone arch.
+FPGA
+ATM
+Layer 2 switches
+Flow Tables in switches
+
+IP Forwarding
+BGP - Constraints.
+Commodity Switches
+Load balance with link-weights
+ONIX controller
+Egress Routers
+
+
+
+FORCES
+
+
+---
+Vertically integrated switches too hard to introduce new changes.
+
+
+
+
+Mininet
+
+—topi
+-switch (openVswitch By default)
+
+topo linear, 4
+light weight virtualisation
+
+
+ssh -X mininet@192.168.100.110
+

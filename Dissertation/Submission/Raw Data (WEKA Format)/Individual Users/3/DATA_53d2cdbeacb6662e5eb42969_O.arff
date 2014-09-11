@@ -1,0 +1,45 @@
+@relation APPUSAGE
+@attribute activeTime numeric
+@attribute packageName {'com.facebook.katana','com.facebook.orca','com.snapchat.android','com.tinder','com.htsu.hsbcpersonalbanking','com.android.mms','com.android.email','com.android.contacts','com.android.phone','com.sec.android.app.camera','com.sec.android.app.clockpackage','com.sec.android.gallery3d','com.sec.android.app.shealth','com.sec.android.app.sbrowser','com.uob.websense'}
+@attribute startMinuteDay numeric
+@attribute locationTag {'O','H'}
+@attribute category {'Social','Communication','Lifestyle','Finance','AndroidSystem'}
+
+@data
+16000,'com.android.mms',62530,'O','AndroidSystem'
+0,'com.android.email',62698,'O','AndroidSystem'
+20000,'com.snapchat.android',62702,'O','Social'
+24000,'com.android.mms',62842,'O','AndroidSystem'
+8000,'com.android.contacts',63025,'O','AndroidSystem'
+0,'com.android.phone',63037,'O','AndroidSystem'
+8000,'com.android.phone',63053,'O','AndroidSystem'
+0,'com.android.contacts',63061,'O','AndroidSystem'
+4000,'com.android.phone',63069,'O','AndroidSystem'
+4000,'com.android.phone',63151,'O','AndroidSystem'
+0,'com.android.phone',63065,'O','AndroidSystem'
+4000,'com.android.mms',63159,'O','AndroidSystem'
+0,'com.sec.android.app.camera',63302,'O','AndroidSystem'
+8000,'com.snapchat.android',83906,'O','Social'
+20000,'com.sec.android.app.clockpackage',33601,'O','AndroidSystem'
+0,'com.sec.android.app.clockpackage',33633,'O','AndroidSystem'
+4000,'com.sec.android.app.clockpackage',41419,'O','AndroidSystem'
+20000,'com.sec.android.app.clockpackage',41467,'O','AndroidSystem'
+4000,'com.android.email',41487,'O','AndroidSystem'
+0,'com.sec.android.gallery3d',43407,'O','AndroidSystem'
+0,'com.facebook.katana',44623,'O','Social'
+0,'com.facebook.orca',44627,'O','Communication'
+4000,'com.facebook.katana',44686,'O','Social'
+4000,'com.facebook.katana',44799,'O','Social'
+116000,'com.facebook.katana',44803,'O','Social'
+20000,'com.android.mms',44919,'O','AndroidSystem'
+420000,'com.facebook.katana',44943,'O','Social'
+8000,'com.sec.android.app.shealth',45472,'O','AndroidSystem'
+20000,'com.android.email',45492,'O','AndroidSystem'
+4000,'com.sec.android.app.sbrowser',45516,'O','AndroidSystem'
+60000,'com.tinder',45524,'O','Lifestyle'
+8000,'com.tinder',46001,'O','Lifestyle'
+8000,'com.tinder',46998,'O','Lifestyle'
+8000,'com.android.email',51990,'O','AndroidSystem'
+0,'com.htsu.hsbcpersonalbanking',52405,'O','Finance'
+4000,'com.htsu.hsbcpersonalbanking',52409,'O','Finance'
+20000,'com.android.contacts',52413,'O','AndroidSystem'

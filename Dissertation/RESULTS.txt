@@ -1,0 +1,63 @@
+
+> A
+
+Correctly Classified Instances        1985               95.7549 %
+Incorrectly Classified Instances        88                4.2451 %
+
+> A
+
+Correctly Classified Instances         331               48.2507 %
+Incorrectly Classified Instances       355               51.7493 %
+
+> A
+
+Correctly Classified Instances          97               88.1818 %
+Incorrectly Classified Instances        13               11.8182 %
+
+> A
+
+Correctly Classified Instances         466               78.057  %
+Incorrectly Classified Instances       131               21.943  %
+
+> A 
+
+Correctly Classified Instances         506               55.1799 %
+Incorrectly Classified Instances       411               44.8201 %
+
+> A
+
+Correctly Classified Instances         649               75.553  %
+Incorrectly Classified Instances       210               24.447  %
+
+> A
+
+Correctly Classified Instances         413               52.9487 %
+Incorrectly Classified Instances       367               47.0513 %
+
+> A
+
+Correctly Classified Instances         374               85.1936 %
+Incorrectly Classified Instances        65               14.8064 %
+
+> A
+
+Correctly Classified Instances         308               68.1416 %
+Incorrectly Classified Instances       144               31.8584 %
+
+> A
+
+Correctly Classified Instances         602               32.2097 %
+Incorrectly Classified Instances      1267               67.7903 %
+
+> A
+
+Correctly Classified Instances         602               32.2097 %
+Incorrectly Classified Instances      1267               67.7903 %
+
+> A
+
+Correctly Classified Instances         691               41.4766 %
+Incorrectly Classified Instances       975               58.5234 %
+
+
+95.75+46.25+88.18+78.057+55.17+75.55+52.95+85.19+68.14+32.20+41.47

@@ -1,0 +1,20 @@
+http://www.hcibook.com/e3/plain/exercises/
+
+The following link takes you to an online encyclopaedia of HCI issues, so for anything you don't understand or want to know more about, this is an invaluable resource:
+
+    http://www.interaction-design.org/books/hci.html
+
+There is an open, online course you can dip into to understand more on most of the topics we covered (and others) at
+
+    http://hcicourse.com
+
+Other places to look online include
+
+    http://www.cram.com/flashcards/hci-revision-1614316  These seem pretty good, and it's a useful way to check you have the main principles sorted (note I've not gone through every card to check them, but those I have are fine).
+
+
+Other useful approaches to help you revise:
+
+    Work with each other: discuss issues with friends; share ideas on the core parts of the course together; go over the team work you did last semester with other people and critically appraise it
+    textbooks: there a re a variety of HCI textbooks, and reading any or all of them around the topics we covered in the lectures would be valuable.
+

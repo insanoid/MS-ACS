@@ -1,0 +1,8 @@
+@relation APPUSAGE
+@attribute activeTime numeric
+@attribute packageName {'com.uob.websense'}
+@attribute startMinuteDay numeric
+@attribute locationTag {'O','H'}
+@attribute category {'AndroidSystem'}
+
+@data

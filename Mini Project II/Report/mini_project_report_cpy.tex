@@ -1,0 +1,59 @@
+
+\documentclass[12pt]{report}
+\usepackage[scale=0.8]{geometry} % adjust the page 
+\geometry{a4paper}
+\usepackage{chicago}
+\usepackage{makeidx}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{pdfpages}
+\usepackage{listings}    
+\usepackage{float}
+ \usepackage{url}
+ 
+\floatstyle{plain}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Snippet}
+
+
+
+\def\keywords{\vspace{.5em}
+{\textbf{Keywords} \linebreak \,\relax%
+}}
+\def\endkeywords{\par}
+
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\lstset{language=Java}  
+% Upper part of the page. The '~' is needed because \\
+% only works if a paragraph has started.
+\textbf{\LARGE The University of Birmingham}\\[0.35cm]
+\textbf{\LARGE School of Computer Science}\\[0.35cm]
+\textbf{\LARGE MSc in Advanced Computer Science}\\[2.5cm]
+
+\textsc{\Large Dissertation Report}\\[2.5cm]
+
+% Title
+
+{\large \bfseries Understanding User Behaviour by Mining Smartphone Usage Patterns \& Exploring Them to Improve User Experience \\[1cm] }
+
+{ \textbf{Karthikeya Udupa Kuppar Manjunath}\\[1cm]}
+
+{Supervisor: Mirco Musolesi}
+% Author and supervisor
+
+
+\vfill
+
+% Bottom of the page
+{\large September 2014}
+
+\end{center}
+\end{titlepage}
+
+
+	
+\end{document}

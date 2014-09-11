@@ -1,0 +1,31 @@
+
+
+Example questions, from the non-multiple choice parts of last year's papers.  Prior to that, the course was continuously assessed, so there are no previous exam questions.
+
+ 
+
+    A lighting company wants you to come up with some new form of interactive home lighting system.  Describe how you would use the following techniques, paying particular attention to what you would want to learn at each stage.  Examples should be specific to this domain. 
+
+         (a)     Ethnography    [3%
+
+         (b)     Personas   [3%]
+
+         (c)     Design probe – include what it would be and how you would deploy it [3%]
+
+         (d)     Design guidelines    [3%]
+
+         (e)     Lo-fi prototype - include the tool(s) you would use      [3%]
+
+          (f)      Hi-fi prototype – include the tool(s) you would use     [3%]
+
+         (g)     Heuristic evaluation – including examples of the heuristics you would use, and details of the approach      [4%]
+
+         (h)     A/B testing – describing how you would undertake this         [3%] 
+
+2.    Describe what is meant by “natural” interaction. Explain where it is used, and discuss what is and what is not natural about it.    [25%]
+
+3.    How do intelligent systems aid user interaction?  Illustrate your answer with three non-trivial examples.         [25%]
+
+ 
+
+(typically, questions are more likely to be structured like the first one, rather than unstructured like the second two).

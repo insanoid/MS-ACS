@@ -1,0 +1,38 @@
+@relation APPUSAGE
+@attribute activeTime numeric
+@attribute packageName {'com.whatsapp','com.android.chrome','com.sec.android.app.clockpackage','com.android.contacts','com.android.email','com.uob.websense'}
+@attribute startMinuteDay numeric
+@attribute locationTag {'O','H'}
+@attribute category {'Communication','AndroidSystem'}
+
+@data
+4000,'com.whatsapp',50009,'O','Communication'
+4000,'com.sec.android.app.clockpackage',24809,'O','AndroidSystem'
+4000,'com.sec.android.app.clockpackage',28410,'O','AndroidSystem'
+4000,'com.sec.android.app.clockpackage',6811,'O','AndroidSystem'
+4000,'com.whatsapp',50009,'O','Communication'
+4000,'com.whatsapp',82409,'O','Communication'
+4000,'com.android.contacts',31144,'O','AndroidSystem'
+8000,'com.android.chrome',41322,'O','Communication'
+4000,'com.whatsapp',49535,'O','Communication'
+0,'com.sec.android.app.clockpackage',5913,'O','AndroidSystem'
+8000,'com.whatsapp',35857,'O','Communication'
+8000,'com.whatsapp',37532,'O','Communication'
+8000,'com.whatsapp',48436,'O','Communication'
+8000,'com.android.email',83707,'O','AndroidSystem'
+12000,'com.android.email',84328,'O','AndroidSystem'
+8000,'com.android.email',85531,'O','AndroidSystem'
+12000,'com.android.email',85955,'O','AndroidSystem'
+4000,'com.whatsapp',23175,'O','Communication'
+4000,'com.whatsapp',33976,'O','Communication'
+8000,'com.whatsapp',14577,'O','Communication'
+8000,'com.whatsapp',20576,'O','Communication'
+8000,'com.whatsapp',20827,'O','Communication'
+8000,'com.whatsapp',24168,'O','Communication'
+8000,'com.whatsapp',26925,'O','Communication'
+8000,'com.whatsapp',38575,'O','Communication'
+8000,'com.whatsapp',49539,'O','Communication'
+8000,'com.android.email',83377,'O','AndroidSystem'
+8000,'com.whatsapp',14522,'O','Communication'
+16000,'com.whatsapp',14784,'O','Communication'
+892000,'com.whatsapp',22215,'O','Communication'
